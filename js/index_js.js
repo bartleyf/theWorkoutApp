@@ -27,7 +27,7 @@ $(document).ready(function() {
     });
 }); 
 
-var queryURL = "http://api.airvisual.com/v1/nearest?key=DaHqdonP4rSRvKgZQ";
+var queryURL = "https://api.airvisual.com/v1/nearest?key=DaHqdonP4rSRvKgZQ";
 
 $.ajax({
   url: queryURL,
