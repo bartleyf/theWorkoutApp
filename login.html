@@ -9,18 +9,7 @@
   <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-messaging.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyCJKDCt6N_-PUTW2WUDoqlK8X6-0JHLwfE",
-      authDomain: "workout-log-utcbc.firebaseapp.com",
-      databaseURL: "https://workout-log-utcbc.firebaseio.com",
-      projectId: "workout-log-utcbc",
-      storageBucket: "workout-log-utcbc.appspot.com",
-      messagingSenderId: "565408977376"
-    };
-    firebase.initializeApp(config);
-  </script>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
     crossorigin="anonymous">
 
@@ -102,6 +91,8 @@
                 <input class="form-control" id="password-signin" type="password">
               </div>
               <button class="btn btn-default" id="sign-in" type="submit">Sign-In</button>
+              <button id="btnLogout" class="btn btn-action hide">Log Out</button>
+
             </form>
             <div id="message"></div>
           </div>
@@ -117,6 +108,17 @@
 
     <!-- JavaScript -->
     <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCJKDCt6N_-PUTW2WUDoqlK8X6-0JHLwfE",
+        authDomain: "workout-log-utcbc.firebaseapp.com",
+        databaseURL: "https://workout-log-utcbc.firebaseio.com",
+        projectId: "workout-log-utcbc",
+        storageBucket: "workout-log-utcbc.appspot.com",
+        messagingSenderId: "565408977376"
+      };
+      firebase.initializeApp(config);
+
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           // User is signed in.
@@ -154,6 +156,7 @@
         });
 
         $("form").trigger("reset");
+
 
       });
 
@@ -207,6 +210,18 @@
           var errorCode = error.code;
           var errorMessage = error.message;
         });
+
+      firebase.auth().onAuthStateChanged(firebaseUser => {
+        if (firebaseUser) {
+          console.log(firebaseUser);
+          $("#message").text("logged in");
+          btnLogout.classList.remove('hide');
+        } else {
+          console.log('not logged in');
+          $("#message").text("not logged in");
+          btnLogout.classList.add('hide');
+        }
+      });
     </script>
 
   </body>
